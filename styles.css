@@ -294,6 +294,27 @@ h1 {
 }
 
 @media (max-width: 720px) {
+  .page {
+    padding: 24px 16px 36px;
+  }
+
+  .header {
+    gap: 16px;
+  }
+
+  .subhead {
+    max-width: none;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .board-wrap {
     padding: 16px;
   }
@@ -304,5 +325,10 @@ h1 {
 
   .board {
     --cell-size: 34px;
+  }
+
+  .modal__card {
+    width: min(90vw, 340px);
+    padding: 24px;
   }
 }
