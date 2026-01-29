@@ -1,14 +1,18 @@
 :root {
   color-scheme: light;
   --bg: #f6efe6;
-  --ink: #2a231c;
-  --accent: #d9653b;
-  --accent-dark: #a94828;
-  --tile: #fff8f0;
-  --tile-border: #dbc7b0;
-  --tile-reveal: #f3e1cf;
-  --tile-flag: #ffe5cc;
-  --shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+  --bg-deep: #efe1d1;
+  --ink: #1f1a14;
+  --muted: #6b4f38;
+  --accent: #d04a2d;
+  --accent-dark: #9c3420;
+  --accent-warm: #f0b44f;
+  --card: #fff7ee;
+  --tile: #fffaf5;
+  --tile-border: #e3cdb8;
+  --tile-reveal: #f1dfce;
+  --tile-flag: #ffe7cf;
+  --shadow: 0 18px 40px rgba(60, 34, 18, 0.15);
 }
 
 * {
@@ -17,55 +21,72 @@
 
 body {
   margin: 0;
-  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #fff3e5 0%, var(--bg) 45%, #efe4d9 100%);
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at 20% 0%, #fff6ea 0%, var(--bg) 45%, var(--bg-deep) 100%);
   color: var(--ink);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.45) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .page {
-  max-width: 1000px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 32px 20px 48px;
+  padding: 40px 24px 56px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
+  position: relative;
 }
 
 .header {
   display: grid;
-  gap: 24px;
+  gap: 28px;
   align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   font-size: 0.75rem;
   margin: 0 0 8px;
-  color: #7a5a3a;
+  color: var(--muted);
+  font-weight: 600;
 }
 
 h1 {
   margin: 0 0 8px;
-  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-size: clamp(2.1rem, 3.8vw, 3.3rem);
+  font-family: "Fraunces", "Times New Roman", serif;
 }
 
 .subhead {
   margin: 0;
-  max-width: 40ch;
-  color: #5b4633;
+  max-width: 42ch;
+  color: var(--muted);
+  line-height: 1.65;
 }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 16px;
 }
 
 .stat {
-  background: #fff7ee;
-  padding: 14px 16px;
-  border-radius: 12px;
+  background: var(--card);
+  padding: 16px 18px;
+  border-radius: 16px;
   border: 1px solid #ead7c6;
   box-shadow: var(--shadow);
 }
@@ -74,8 +95,8 @@ h1 {
   display: block;
   font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #8c6a4a;
+  letter-spacing: 0.12em;
+  color: var(--muted);
 }
 
 .stat .value {
@@ -83,23 +104,39 @@ h1 {
   font-weight: 700;
 }
 
+.play-area {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.panel {
+  background: var(--card);
+  border-radius: 20px;
+  border: 1px solid #ead7c6;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  display: grid;
+  gap: 20px;
+}
+
 .controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
+  display: grid;
+  gap: 12px;
 }
 
 .button {
-  background: var(--accent);
+  background: linear-gradient(140deg, var(--accent) 0%, var(--accent-dark) 100%);
   color: #fff;
   border: none;
   padding: 12px 20px;
   border-radius: 999px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 10px 20px rgba(217, 101, 59, 0.3);
+  box-shadow: 0 12px 24px rgba(208, 74, 45, 0.3);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 44px;
 }
 
 .button:hover {
@@ -110,41 +147,75 @@ h1 {
 .hint {
   margin: 0;
   font-size: 0.9rem;
-  color: #6b4f38;
+  color: var(--muted);
 }
 
 .status {
   margin: 0;
   font-weight: 600;
+  font-size: 1rem;
+}
+
+.legend {
+  display: grid;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.legend__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff3e5;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.legend__icon {
+  font-size: 1.1rem;
 }
 
 .board-wrap {
-  background: #fff7ee;
+  background: var(--card);
   border-radius: 24px;
   padding: 24px;
   border: 1px solid #ead7c6;
   box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.board-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), transparent 60%);
+  pointer-events: none;
 }
 
 .board {
   display: grid;
-  gap: 6px;
+  gap: 8px;
   justify-content: center;
-  --cell-size: 42px;
+  --cell-size: 44px;
   grid-template-columns: repeat(var(--columns, 10), var(--cell-size));
+  position: relative;
+  z-index: 1;
 }
 
 .cell {
   width: var(--cell-size);
   height: var(--cell-size);
   border: 1px solid var(--tile-border);
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--tile);
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1rem;
   color: var(--ink);
-  transition: transform 0.12s ease, background 0.12s ease;
+  transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: inset 0 -2px 0 rgba(208, 74, 45, 0.08);
 }
 
 .cell:hover {
@@ -154,6 +225,7 @@ h1 {
 .cell.revealed {
   background: var(--tile-reveal);
   cursor: default;
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
 }
 
 .cell.flagged {
@@ -166,6 +238,12 @@ h1 {
 
 .cell.shaved {
   background: #f9d8c8 url("assets/bald-turkey.png") center/cover no-repeat;
+}
+
+.button:focus-visible,
+.cell:focus-visible {
+  outline: 3px solid rgba(208, 74, 45, 0.35);
+  outline-offset: 2px;
 }
 
 .modal {
@@ -293,6 +371,13 @@ h1 {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 @media (max-width: 720px) {
   .page {
     padding: 24px 16px 36px;
@@ -310,9 +395,8 @@ h1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .controls {
-    flex-direction: column;
-    align-items: flex-start;
+  .play-area {
+    grid-template-columns: 1fr;
   }
 
   .board-wrap {
